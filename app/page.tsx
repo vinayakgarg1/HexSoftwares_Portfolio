@@ -7,18 +7,21 @@ import { ProjectsSection } from "@/components/projects-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { ScrollBackground } from "@/components/scroll-background"
+import { PageTransition } from "@/components/page-transition"
 
 export default function Home() {
   return (
     <ScrollBackground>
-      <main className="min-h-screen">
-        <Header />
-        <HeroSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <ContactSection />
-        <Footer />
-      </main>
+      <PageTransition>
+        <main className="min-h-screen">
+          <Header />
+          <HeroSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <ContactSection />
+          <Footer />
+        </main>
+      </PageTransition>
     </ScrollBackground>
   )
 }

@@ -1,13 +1,15 @@
 "use client"
 
 import { BentoCard } from "./bento-card"
+import { ParticleNetwork } from "./particle-network"
 import { Github, Linkedin, Mail, MapPin, Code2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 export function HeroSection() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-6 pt-28 pb-12">
+    <section id="about" className="relative mx-auto max-w-6xl px-6 pt-28 pb-12">
+      <ParticleNetwork />
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         {/* Profile Card - Large */}
         <BentoCard className="md:col-span-2 lg:col-span-2 lg:row-span-2" delay={0}>

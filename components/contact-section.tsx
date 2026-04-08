@@ -1,10 +1,41 @@
 "use client"
 
+import { useState } from "react"
 import { BentoCard } from "./bento-card"
-import { Mail, Phone, ArrowUpRight, Download } from "lucide-react"
+import { Mail, Phone, ArrowUpRight, Download, Check, Copy } from "lucide-react"
 import Link from "next/link"
 
+const EMAIL = "vngarg0127@gmail.com"
+
 export function ContactSection() {
+  const [copied, setCopied] = useState(false)
+
+  const handleEmailClick = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    
+    // Try to open mailto first (works in production)
+    const mailtoWindow = window.open(`mailto:${EMAIL}`, "_self")
+    
+    // If mailto didn't work (sandboxed iframe), copy to clipboard
+    if (!mailtoWindow || mailtoWindow.closed) {
+      try {
+        await navigator.clipboard.writeText(EMAIL)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      } catch {
+        // Fallback: select text for manual copy
+        const textArea = document.createElement("textarea")
+        textArea.value = EMAIL
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand("copy")
+        document.body.removeChild(textArea)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      }
+    }
+  }
+
   return (
     <section id="contact" className="mx-auto max-w-6xl px-6 py-12 pb-24">
       <div className="mb-8">
@@ -29,13 +60,13 @@ export function ContactSection() {
               </p>
             </div>
             <div className="mt-6 flex flex-wrap gap-4">
-              <Link
-                href="mailto:vngarg0127@gmail.com"
+              <button
+                onClick={handleEmailClick}
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground transition-all hover:bg-primary/90"
               >
-                Send Email
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
+                {copied ? "Email Copied!" : "Send Email"}
+                {copied ? <Check className="h-4 w-4" /> : <ArrowUpRight className="h-4 w-4" />}
+              </button>
               <Link
                 href="/Resume.pdf"
                 download
@@ -54,18 +85,18 @@ export function ContactSection() {
             Direct Contact
           </span>
           <div className="flex flex-col gap-4">
-            <Link
-              href="mailto:vngarg0127@gmail.com"
-              className="group flex items-center gap-3 text-secondary-foreground transition-colors hover:text-primary"
+            <button
+              onClick={handleEmailClick}
+              className="group flex w-full items-center gap-3 text-left text-secondary-foreground transition-colors hover:text-primary"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
-                <Mail className="h-5 w-5 text-primary" />
+                {copied ? <Check className="h-5 w-5 text-primary" /> : <Mail className="h-5 w-5 text-primary" />}
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Email</p>
-                <p className="text-sm">vngarg0127@gmail.com</p>
+                <p className="text-sm">{copied ? "Copied to clipboard!" : EMAIL}</p>
               </div>
-            </Link>
+            </button>
             <Link
               href="tel:+917067053015"
               className="group flex items-center gap-3 text-secondary-foreground transition-colors hover:text-primary"

@@ -2,6 +2,8 @@
 
 import { BentoCard } from "./bento-card"
 import { ParticleNetwork } from "./particle-network"
+import { GitHubActivity } from "./github-activity"
+import { SpotifyPlayer } from "./spotify-player"
 import { Github, Linkedin, Mail, MapPin, Code2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -117,6 +119,16 @@ export function HeroSection() {
               <span className="text-sm text-muted-foreground">Open to opportunities</span>
             </div>
           </div>
+        </BentoCard>
+
+        {/* GitHub Activity Card */}
+        <BentoCard className="md:col-span-2 lg:col-span-2" delay={0.5}>
+          <GitHubActivity />
+        </BentoCard>
+
+        {/* Spotify Player Card */}
+        <BentoCard className="md:col-span-1 lg:col-span-2" delay={0.6}>
+          <SpotifyPlayer />
         </BentoCard>
       </div>
     </section>
